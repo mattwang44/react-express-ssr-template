@@ -1,4 +1,4 @@
-FROM node:8.15-alpine as builder
+FROM node:12.16.1-alpine as builder
 ADD ./client client
 
 RUN cd client \
@@ -7,20 +7,20 @@ RUN cd client \
     && rm -rf node_modules
 
 
-FROM mhart/alpine-node:8.9.2
+FROM mhart/alpine-node:12.16.1
 
-WORKDIR /src
+WORKDIR /root
 
 ADD package.json package.json
 ADD package-lock.json package-lock.json
+RUN npm install
+
 ADD webpack.config.js webpack.config.js
 ADD src src
-
-EXPOSE 3000
-
-RUN npm install  \
-    && npm run build  
+RUN npm run build  
 
 COPY --from=builder client/build dist/client
 
-CMD ["node", "dist/entry.js"]
+EXPOSE 3000
+
+CMD ["npm", "start"]

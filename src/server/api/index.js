@@ -1,10 +1,10 @@
 'use strict';
 
-import express from 'express';
-import todoItemRouter from './todoItem';
+const express = require('express');
+const todoItemRouter = require('./todoItem');
 
 const router = express.Router();
 
 router.use('/todoItem', todoItemRouter);
 
-export default router;
+module.exports = router;

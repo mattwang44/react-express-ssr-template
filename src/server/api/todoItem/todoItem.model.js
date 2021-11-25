@@ -1,6 +1,7 @@
 'use strict';
 
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const TodoItemSchema = new Schema(
@@ -18,4 +19,4 @@ const TodoItemSchema = new Schema(
     }
 );
 
-export default mongoose.model('TodoItem', TodoItemSchema);
+module.exports = mongoose.model('TodoItem', TodoItemSchema);
