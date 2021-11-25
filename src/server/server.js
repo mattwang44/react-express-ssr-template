@@ -1,10 +1,11 @@
-import express from "express";
-import path from "path";
-import compression from "compression";
-import helmet from "helmet";
-import bodyParser from "body-parser";
-import mongooseSetup from "./mongoose.setup";
-import apiRouter from "./api";
+const express = require('express');
+const path = require('path');
+const compression = require('compression');
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
+
+const mongooseSetup = require('./mongoose.setup');
+const apiRouter = require('./api');
 
 const app = express();
 const port = 3000;
@@ -23,4 +24,4 @@ console.log(client_path);
 app.use("/api", apiRouter);
 app.get("/hello", (req, res) => res.send("Hello World!"));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`app listening on port ${port}!`));

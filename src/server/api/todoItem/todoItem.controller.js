@@ -1,13 +1,13 @@
 'use strict';
 
-import TodoItem from './todoItem.model';
+const TodoItem = require('./todoItem.model');
 
 
 function isValidStatus(status) {
     return ['todo', 'wip', 'done'].includes(status);
 }
 
-export const getTodoItems = (req, res) => {
+exports.getTodoItems = (req, res) => {
     const {status} = req.body;
     if (!isValidStatus(status)) {
         return res.status(400).json('Invalid status: ' + status);
