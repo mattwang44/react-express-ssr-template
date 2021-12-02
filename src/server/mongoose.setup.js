@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('./config');
 
-module.exports = function setup() {
+exports.connect = () => {
   // Options for removing deprecated warnings, see
   // https://mongoosejs.com/docs/deprecations.html for detail
   const options = {
@@ -12,4 +12,8 @@ module.exports = function setup() {
       useUnifiedTopology: true
   };
   return mongoose.connect(config.mongo.uri, options);
+}
+
+exports.close = () => {
+  return mongoose.connection.close()
 }
