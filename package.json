@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/server/server.js",
   "scripts": {
-    "build": "webpack",
     "dev": "nodemon",
-    "start": "node dist/entry.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev-client": "cd client; yarn install && yarn build; cp -r ./build ../src/client"
   },
   "author": "",
   "license": "ISC",
@@ -20,18 +20,14 @@
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/preset-env": "^7.7.7",
-    "babel-loader": "^8.0.6",
     "eslint": "^6.8.0",
-    "prettier": "^1.19.1",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "prettier": "^1.19.1"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+  "nodemonConfig": {
+    "watch": [
+      "src/server/"
+    ],
+    "delay": "1000",
+    "ext": "js,"
   }
 }

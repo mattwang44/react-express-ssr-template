@@ -15,11 +15,9 @@ ADD package.json package.json
 ADD package-lock.json package-lock.json
 RUN npm install
 
-ADD webpack.config.js webpack.config.js
 ADD src src
-RUN npm run build  
 
-COPY --from=builder client/build dist/client
+COPY --from=builder client/build src/client
 
 EXPOSE 3000
 

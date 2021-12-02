@@ -16,7 +16,7 @@ app.use(helmet.hsts({ maxAge: 15552000 }));
 app.use(compression({}));
 app.use(bodyParser.urlencoded({ limit: 2048000, extended: false }));
 app.use(bodyParser.json({ limit: 2048000 }));
-let client_path = path.join(".", "dist", "client");
+let client_path = path.join(__dirname, "..", "client");
 app.use("/", express.static(client_path));
 
 app.use("/api", apiRouter);
