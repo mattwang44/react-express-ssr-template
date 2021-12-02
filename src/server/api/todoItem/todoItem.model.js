@@ -15,7 +15,8 @@ const TodoItemSchema = new Schema(
             type: String,
             enum: ['todo', 'wip', 'done'],
             default: 'todo'
-        }
+        },
+        isArchived: {type: Boolean, default: false},
     }
 );
 
