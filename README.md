@@ -1,27 +1,49 @@
-# Simple Server-Side rendering App (Express+React)
+# Server-Side Rendering App (React+Express.js+MongoDB)
+
+A basic React+Express SSR app with a decent development environment (mainly for demonstration/tutorial or being used as project template). This project also contains:
+
+- A docker-compose script and Dockerfile that handles the build process and launches a MongoDB container for testing.
+- Basic test cases implemented with [jest](https://github.com/facebook/jest) and affiliated mock data & handlers.
+- Adopted express-validator, eslint, nodemon.
+- (WIP) Basic CI using GitHub Actions.
 
 ## Instruction
 
-1. Add client-side project with create-react-app.
+Run the commands to launch the dev server:
 
-   ```
-   npx create-react-app client
-   ```
+```bash
+docker-compose up
+```
 
-2. Run local MongoDB server
+and then you can try calling the APIs. You can also connect to the MongoDB from `localhost:27017`.
 
-   ```
-   mongod --port 27017 --dbpath=/Users/<username>/data/db --config /usr/local/etc/mongod.conf --fork
-   ```
+To run the unit test:
 
-3. Build docker image
+```bash
+docker-compose run --rm app sh -c 'npm test'
+```
 
-   ```
-   docker build . -t ssr
-   ```
+If you want to access the frontend from `localhost:3000`, run the command:
 
-4. Run the docker image
+```bash
+npm run build-dev-client
+```
 
-   ```
-   docker run -p 127.0.0.1:3000:3000 ssr
-   ```
+## Sample APIs
+
+This app has two sample APIs, one for `POST` and one for `GET`. Followings are the sample [httpie](https://github.com/httpie/httpie) CLI commands to call them:
+
+- `POST`:
+  ```bash
+  http POST http://localhost:3000/api/todoItem/ \
+    title=test \
+    description="really serious" \
+    expiredAt="2021-11-12" \
+    status=wip \
+    tags:='["tag3","tag4"]'
+  ```
+- `GET`:
+  ```bash
+  http GET http://localhost:3000/api/todoItem/ \
+    tag=test4
+  ```
