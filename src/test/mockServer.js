@@ -21,7 +21,7 @@ class MockServer {
     close() {
         return new Promise((resolve, reject) => {
             this.server.close(() => {
-                mongooseSetup.close()
+                mongooseSetup.close();
                 console.log('server close');
                 resolve();
             });

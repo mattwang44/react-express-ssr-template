@@ -5,7 +5,7 @@ let config = {
         isReplica: false,
         uri: process.env.MONGO_URI
     },
-    env: process.env.NODE_ENV || 'production',
+    env: process.env.NODE_ENV || 'production'
 };
 
 

@@ -13,7 +13,7 @@ class MongoHelper {
 
     removeAll() {
         return Promise.all([
-            todoItem.deleteMany(),
+            todoItem.deleteMany()
         ]);
     }
 

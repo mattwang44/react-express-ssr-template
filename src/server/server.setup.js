@@ -11,14 +11,14 @@ const app = express();
 
 mongooseSetup.connect();
 
-app.use(helmet.hsts({ maxAge: 15552000 }));
+app.use(helmet.hsts({maxAge: 15552000}));
 app.use(compression({}));
-app.use(bodyParser.urlencoded({ limit: 2048000, extended: false }));
-app.use(bodyParser.json({ limit: 2048000 }));
-let client_path = path.join(__dirname, "..", "client");
-app.use("/", express.static(client_path));
+app.use(bodyParser.urlencoded({limit: 2048000, extended: false}));
+app.use(bodyParser.json({limit: 2048000}));
+let clientPath = path.join(__dirname, '..', 'client');
+app.use('/', express.static(clientPath));
 
-app.use("/api", apiRouter);
-app.get("/hello", (req, res) => res.send("Hello World!"));
+app.use('/api', apiRouter);
+app.get('/hello', (req, res) => res.send('Hello World!'));
 
-module.exports = app
+module.exports = app;

@@ -1,14 +1,14 @@
 /* global expect, beforeAll, afterAll */
 
 const mongoHelper = require('../../../test/mockData');
-const todoItemData = require('../../../test/mockData/todoItems')
+const todoItemData = require('../../../test/mockData/todoItems');
 const todoItem = require('./todoItem.model');
 
 beforeAll(() => {
     mongoHelper.connect();
     return Promise.all([
-        mongoHelper.removeAll(),
-    ])
+        mongoHelper.removeAll()
+    ]);
 });
 
 
@@ -29,5 +29,5 @@ describe('test todoItem model', () => {
 });
 
 afterAll(() => Promise.all([
-    mongoHelper.close(),
+    mongoHelper.close()
 ]));

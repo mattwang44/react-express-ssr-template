@@ -1,12 +1,10 @@
-
-   
-/* global expect, beforeEach, afterEach, jest */
+/* global expect */
 
 const request = require('supertest');
 
 const mockServer = require('../../../test/mockServer');
 const mongoHelper = require('../../../test/mockData');
-const todoItemData = require('../../../test/mockData/todoItems')
+const todoItemData = require('../../../test/mockData/todoItems');
 
 
 const sendPostRequest = (uri, expectedStatus, body = {}) => {
@@ -32,18 +30,18 @@ beforeEach(() => {
     mongoHelper.connect();
     return Promise.all([
         mongoHelper.removeAll(),
-        mockServer.listen(),
-    ]).then(() => mongoHelper.createTestTodoItems())
+        mockServer.listen()
+    ]).then(() => mongoHelper.createTestTodoItems());
 });
 
 describe('test create todo item', () => {
     const uri = '/api/todoItem';
     const data = {
         title: 'test',
-        description: "really serious",
-        expiredAt: "2021-11-12",
+        description: 'really serious',
+        expiredAt: '2021-11-12',
         status: 'wip',
-        tags: ["test2", "test4"]
+        tags: ['test2', 'test4']
     };
 
     it('should create successfully', () => {
@@ -53,13 +51,13 @@ describe('test create todo item', () => {
 
     it('should not create item due to absence of title', () => {
         let payload = Object.assign({}, data);
-        delete payload.title
+        delete payload.title;
         return sendPostRequest(uri, 400, payload);
     });
 
     it('should not create item due to invalid status', () => {
         let payload = Object.assign({}, data);
-        payload.status = 'random_wrong_status'
+        payload.status = 'random_wrong_status';
         return sendPostRequest(uri, 400, payload);
     });
 
@@ -84,15 +82,14 @@ describe('test get todo items', () => {
 
     it('should get all items that has specified tag', () => {
         const tag = 'tag1';
-        return sendGetRequest(uri, 200, { tag }).then((res) => {
+        return sendGetRequest(uri, 200, {tag}).then((res) => {
             const count = data.filter((item) => item.tags.includes(tag)).length;
             expect(res.body.length).toEqual(count);
         });
     });
-
 });
 
 afterEach(() => Promise.all([
     mockServer.close(),
-    mongoHelper.close(),
+    mongoHelper.close()
 ]));

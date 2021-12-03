@@ -1,6 +1,6 @@
 'use strict';
 
-const { validationResult, check, matchedData} = require('express-validator');
+const {validationResult, check, matchedData} = require('express-validator');
 const mongoose = require('mongoose');
 
 const TodoItem = require('./todoItem.model');
@@ -19,7 +19,7 @@ exports.postTodoItem = [
         .isISO8601(),
     check('tags')
         .exists()
-        .isArray({ min: 1 })
+        .isArray({min: 1})
         .withMessage('not an array with at least one item'),
     check('status')
         .optional()
@@ -30,15 +30,15 @@ exports.postTodoItem = [
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         const data = matchedData(req);
         try {
             const item = await TodoItem.create(data);
-            console.log({ msg: 'item created', id: item._id });
-            return res.status(201).json(item)
+            console.log({msg: 'item created', id: item._id});
+            return res.status(201).json(item);
         } catch (err) {
-            console.error({ msg: "something went wrong when creating item", err });
+            console.error({msg: 'something went wrong when creating item', err});
         }
     }
 ];
@@ -53,38 +53,37 @@ exports.getTodoItems = [
         .optional()
         .toBoolean(),
     (req, res) => {
-
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         const {_id, tag, status, isArchived} = matchedData(req);
         const match = {};
-        if (!!_id) {
+        if (_id) {
             match._id = mongoose.Types.ObjectId(_id);
         }
-        if (!!tag) {
+        if (tag) {
             match.tags = {$in: [tag]};
         }
-        if (!!status) {
+        if (status) {
             match.status = status;
         }
-        if (!!isArchived) {
+        if (isArchived) {
             match.isArchived = isArchived;
         }
 
         const query = [
-            { $match: match },
+            {$match: match}
         ];
 
         TodoItem.aggregate(query)
             .exec()
             .then((items) => {
-                console.log({msg: 'retrieved items', count: items.length})
+                console.log({msg: 'retrieved items', count: items.length});
                 return res.status(200).json(items);
             })
             .catch((reason) => {
-                console.error({msg: 'something went wrong when retrieving items', reason})
+                console.error({msg: 'something went wrong when retrieving items', reason});
                 return res.status(500).json('Error fetching items, reason=' + reason);
             });
     }

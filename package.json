@@ -7,7 +7,8 @@
     "dev": "nodemon",
     "start": "node src/server/server.js",
     "test": "npx jest --runInBand --watchAll=false --silent --detectOpenHandles",
-    "build-dev-client": "cd client; yarn install && yarn build; cp -r ./build ../src/client"
+    "build-dev-client": "cd client; yarn install && yarn build; cp -r ./build ../src/client",
+    "lint": "npx eslint --ignore-path .gitignore -c .eslintrc.js src/"
   },
   "author": "",
   "license": "ISC",
