@@ -1,0 +1,30 @@
+name: CI workflows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  backend_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint & unit test
+        run: docker-compose run --rm app sh -c 'npm run lint && npm test'
+      - name: cleanup
+        run: docker-compose down
+
+  frontend_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: unit test
+        run: |
+          docker run --rm -v ${PWD}/client:/client node:fermium \
+            sh -c "cd /client; npm ci; CI=true npm test;"
+      - name: cleanup
+        run: docker-compose down
