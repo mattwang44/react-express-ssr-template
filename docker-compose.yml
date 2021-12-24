@@ -18,4 +18,6 @@ services:
       - mongodb
     ports:
       - 3000:3000
+    entrypoint:
+        - /root/docker-entrypoint.sh
     command: npm run dev
