@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 
 const TodoItem = require('./todoItem.model');
 
-
-exports.isValidStatus = (status) => ['todo', 'wip', 'done'].includes(status);
+exports.VALID_STATUS = ['todo', 'wip', 'done'];
+exports.isValidStatus = (status) => exports.VALID_STATUS.includes(status);
 
 exports.postTodoItem = [
     check('title').exists(),
@@ -39,6 +39,7 @@ exports.postTodoItem = [
             return res.status(201).json(item);
         } catch (err) {
             console.error({msg: 'something went wrong when creating item', err});
+            return res.status(400).json({err});
         }
     }
 ];
