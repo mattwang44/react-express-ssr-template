@@ -1,19 +1,22 @@
-FROM node:12.16.1-alpine as builder
+FROM node:fermium-alpine as builder
 ADD ./client client
 
 RUN cd client \
-    && yarn install \
-    && yarn build  \
+    && npm install \
+    && npm run build  \
     && rm -rf node_modules
 
 
-FROM mhart/alpine-node:12.16.1
+FROM mhart/alpine-node:14.17
 
 WORKDIR /root
 
 ADD package.json package.json
 ADD package-lock.json package-lock.json
-RUN npm install
+RUN apk --no-cache --update --virtual .build-deps add \
+    python make g++ py-pip build-base && \
+    npm install && \
+    apk del .build-deps
 
 ADD src src
 

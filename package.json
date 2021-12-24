@@ -7,7 +7,7 @@
     "dev": "nodemon",
     "start": "node src/server/server.js",
     "test": "npx jest --runInBand --watchAll=false --silent --detectOpenHandles",
-    "build-dev-client": "cd client; yarn install && yarn build; cp -r ./build ../src/client",
+    "build-dev-client": "cd client; npm install && npm run build; cp -r ./build ../src/client",
     "lint": "npx eslint --ignore-path .gitignore -c .eslintrc.js src/"
   },
   "author": "",
@@ -21,7 +21,7 @@
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^8.5.0",
     "jest": "^27.4.3",
     "prettier": "^1.19.1",
     "supertest": "^6.1.6"
