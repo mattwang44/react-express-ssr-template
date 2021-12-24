@@ -5,7 +5,28 @@ A basic React+Express SSR app with a decent development environment (mainly for 
 - A docker-compose script and Dockerfile that handles the build process and launches a MongoDB container for testing.
 - Basic test cases implemented with [jest](https://github.com/facebook/jest) and affiliated mock data & handlers.
 - Adopted express-validator, eslint, nodemon.
-- (WIP) Basic CI using GitHub Actions.
+- Basic CI using GitHub Actions.
+
+## Code Structure
+
+```
+.
+├── Dockerfile
+├── docker-compose.yml
+├── package-lock.json
+├── package.json
+├── client/                     # frontend source code (created with create-react-app)
+└── src/                        # backend source code
+    ├── server/                 # the code required to run the server
+    │   ├── api/                # APIs, routes, models, and corresponding unit tests
+    │   ├── config.js           # app configurations
+    │   ├── mongoose.setup.js   # mongoose configs
+    │   ├── server.setup.js     # express configs and middlewares
+    │   └── server.js           # the entrypoint
+    └── test/                   # code for testing
+        ├── mockData/           # mock data used in testing
+        └── mockServer.js
+```
 
 ## Instruction
 
